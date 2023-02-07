@@ -11,7 +11,10 @@ class DetailsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(movie.title),
+        title: Text(
+          movie.title,
+          key: const Key("Title"),
+        ),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -58,6 +61,7 @@ class DetailsPage extends StatelessWidget {
                   const Icon(Icons.new_releases_outlined),
                   Text(movie.releaseDate),
                 ],
+                key: (const Key("ReleaseDate")),
               ),
             ],
           ),

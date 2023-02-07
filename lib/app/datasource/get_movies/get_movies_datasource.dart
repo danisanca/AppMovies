@@ -4,5 +4,5 @@ import '../../domain/entities/movies_entity.dart';
 
 
 abstract class GetMoviesDataSource {
-  Future<Either<Exception, MovieEntity>> call();
+  Future<MovieEntity> call();
 }

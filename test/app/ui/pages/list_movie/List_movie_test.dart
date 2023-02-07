@@ -1,5 +1,6 @@
 import 'package:app_movies/app/infra/dtos/movies_details_dto.dart';
 import 'package:app_movies/app/ui/bloc/bloc_states.dart';
+import 'package:app_movies/app/ui/bloc/favorites/favorite_bloc.dart';
 import 'package:app_movies/app/ui/pages/list_movies/bloc/bloc.dart';
 import 'package:app_movies/app/ui/pages/list_movies/bloc/states.dart';
 import 'package:app_movies/app/ui/components/custom_list_card_widget.dart';
@@ -15,19 +16,14 @@ import 'package:network_image_mock/network_image_mock.dart';
 
 class ListMovieBlockMock extends Mock implements ListMovieBloc {}
 
-class ModuleMock extends Module {
-  @override
-  List<Bind<Object>> get binds =>
-      [Bind.instance<ListMovieBloc>(ListMovieBlockMock())];
-}
+class FavoriteBlockMock extends Mock implements FavoriteBloc {}
 
 void main() {
-  final ListMovieBloc bloc = ListMovieBlockMock();
+  //Mock dos dados
   final list = [
     MovieDetailsDto.fromJson({
       "adult": false,
       "backdrop_path": "/14QbnygCuTO0vl7CAFmPf1fgZfV.jpg",
-      "genre_ids": [28, 12, 878],
       "id": 634649,
       "media_type": "movie",
       "original_language": "en",
@@ -43,29 +39,36 @@ void main() {
       "vote_count": 16031
     })
   ];
-  setUp(() {
-    initModule(ModuleMock(), replaceBinds: [
-      Bind.instance<ListMovieBloc>(bloc),
-    ]);
-  });
 
-  group('[UI] - HomePage', () {
-    testWidgets('deve retornar um luttie quando estiver vazio ou carregando',
-        (tester) async {
-      //Arrange
+  final ListMovieBloc bloc = ListMovieBlockMock();
+  final FavoriteBloc favoriteBloc = FavoriteBlockMock();
+  final state = ListMovieState(status: IdleState());
+  final stateFavorite = FavoriteState(status: FavoriteStatus.idle, movieEntity: list);
+
+  setUp(() {});
+
+  group('[UI] - ListFilmPage', () {
+    testWidgets("[UI] - ListMovie Carregando componentes", (tester) async {
+      //Quando o estado do block estiver vazio
+      //ARRANGE
       whenListen(
           bloc,
           Stream<ListMovieState>.fromIterable(
-              [ListMovieState(status: LoadingState())]),
-          initialState: ListMovieState(status: LoadingState()));
+            //estado a serem testados
+            [state],
+          ),
+          initialState: state);
 
+      //Construindo widget
       //ACT
-      await tester.pumpWidget(const MaterialApp(
-        home: ListMoviePage(),
+      await tester.pumpWidget(MaterialApp(
+        home: ListMovieContent(bloc: bloc, favoriteBloc: favoriteBloc),
       ));
 
+      //Atualizando tela apos construcao
       await tester.pump();
-      //ASSERT
+
+      //Esperando que aconteça.
       expect(find.byType(Lottie), findsOneWidget);
     });
 
@@ -77,16 +80,16 @@ void main() {
               [ListMovieState(status: SuccessState(), movieEntity: list)]),
           initialState:
               ListMovieState(status: SuccessState(), movieEntity: list));
+      whenListen(
+          favoriteBloc, Stream<FavoriteState>.fromIterable([stateFavorite]),
+          initialState: stateFavorite);
 
       //ACT
       await mockNetworkImagesFor(() async {
-        await tester.pumpWidget(const MaterialApp(
-          home: ListMoviePage(),
+        await tester.pumpWidget(MaterialApp(
+          home: ListMovieContent(bloc: bloc, favoriteBloc: favoriteBloc),
         ));
         await tester.pump();
-
-        
-      
       });
       //ASSERT
       expect(find.byType(CustomListCardWidget), findsOneWidget);

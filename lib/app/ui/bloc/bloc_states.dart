@@ -2,9 +2,14 @@ import 'package:equatable/equatable.dart';
 
 abstract class BlocBaseState extends Equatable {}
 
-class IdleState extends BlocBaseState {
+class IdleState implements BlocBaseState {
+  const IdleState();
   @override
   List<Object?> get props => [];
+  
+  @override
+  // TODO: implement stringify
+  bool? get stringify => false;
 }
 
 class LoadingState extends BlocBaseState {

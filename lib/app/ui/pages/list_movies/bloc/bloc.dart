@@ -9,9 +9,10 @@ part 'events.dart';
 class ListMovieBloc extends Bloc<BlocBaseEvent, ListMovieState> {
   final GetMoviesUseCase _getMoviesUseCase;
 
-  ListMovieBloc(GetMoviesUseCase getMoviesUseCase)
+  ListMovieBloc(GetMoviesUseCase getMoviesUseCase,
+      {ListMovieState? initialstate})
       : _getMoviesUseCase = getMoviesUseCase,
-        super(ListMovieState(status: IdleState())) {
+        super(initialstate ?? ListMovieState(status: IdleState())) {
     on<FecthMovies>(_onFetchMovies);
     on<SearchMovieByName>(_onFetchMovieByName);
   }

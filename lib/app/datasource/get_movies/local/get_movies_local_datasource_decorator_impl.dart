@@ -14,14 +14,15 @@ class GetMoviesLocalDataSourceDecoratorImp
       : super(getMoviesDataSource);
 
   @override
-  Future<Either<Exception, MovieEntity>> call() async {
-    return (await super()).fold(
-      (error) async => Right(await _getInCache()),
-      (result) {
-        _saveInCache(result);
-        return Right(result);
-      },
-    );
+  Future<MovieEntity> call() async {
+    try {
+      final result = await super();
+      _saveInCache(result);
+      return result;
+    } catch (e) {
+      return _getInCache();
+    }
+
   }
 
   _saveInCache(MovieEntity movies) async {

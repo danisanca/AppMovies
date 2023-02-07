@@ -3,14 +3,13 @@ import 'package:app_movies/app/ui/bloc/bloc_states.dart';
 import '../../../../domain/entities/movies_details_entity.dart';
 
 class ListMovieState extends BlocBaseState {
-  
   final BlocBaseState status;
   final List<MovieDetailsEntity> movieEntity;
   final List<MovieDetailsEntity> _cachedMovieEntity;
 
   ListMovieState(
       {List<MovieDetailsEntity> cachedMovieEntity = const [],
-      required this.status,
+      this.status = const IdleState(),
       this.movieEntity = const []})
       : _cachedMovieEntity = cachedMovieEntity;
 
@@ -23,9 +22,9 @@ class ListMovieState extends BlocBaseState {
 
   List<MovieDetailsEntity> search(String value) {
     if (value == "") {
-      return _cachedMovieEntity ;
+      return _cachedMovieEntity;
     }
-    List<MovieDetailsEntity> list = _cachedMovieEntity 
+    List<MovieDetailsEntity> list = _cachedMovieEntity
         .where(
           (e) => e.toString().toLowerCase().contains((value.toLowerCase())),
         )
@@ -34,5 +33,5 @@ class ListMovieState extends BlocBaseState {
   }
 
   @override
-  List<Object?> get props => [status,movieEntity,_cachedMovieEntity];
+  List<Object?> get props => [status, movieEntity, _cachedMovieEntity];
 }

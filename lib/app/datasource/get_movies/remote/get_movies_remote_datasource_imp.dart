@@ -11,13 +11,13 @@ class GetMoviesRemoteDatasourceImp implements GetMoviesDataSource {
   GetMoviesRemoteDatasourceImp(this._httpService);
 
   @override
-  Future<Either<Exception, MovieEntity>> call() async {
+  Future< MovieEntity> call() async {
     try {
       await Future.delayed(const Duration(seconds: 3));
       var result = await _httpService.get(API.requestMovieList);
-      return Right(MovieDto.fromJson(result.data));
+      return MovieDto.fromJson(result.data);
     } on DioError catch (e) {
-      return Left(Exception('Falha no datasource: $e'));
+      throw Exception('Falha no datasource: $e');
     }
   }
 }

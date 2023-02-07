@@ -57,15 +57,16 @@ class _HomePageState extends State<HomePage> {
               return BottomNavigationBar(
                 items: const <BottomNavigationBarItem>[
                   BottomNavigationBarItem(
-                    icon: Icon(Icons.favorite),
+                    icon: Icon(Icons.favorite,key: Key("FavoritoIcon"),),
                     label: 'Favoritos',
+                    
                   ),
                   BottomNavigationBarItem(
-                    icon: Icon(Icons.movie),
+                    icon: Icon(Icons.movie,key: Key("listaFilmesIcon"),),
                     label: 'Lista de Filmes',
                   ),
                   BottomNavigationBarItem(
-                    icon: Icon(Icons.star),
+                    icon: Icon(Icons.star,key: Key("EmAltaIcon"),),
                     label: 'Em Alta',
                   ),
                 ],

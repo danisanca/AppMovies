@@ -9,20 +9,32 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:lottie/lottie.dart';
 import '../../components/custom_list_card_widget.dart';
 
-class ListMoviePage extends StatefulWidget {
+class ListMoviePage extends StatelessWidget {
   const ListMoviePage({super.key});
 
   @override
-  State<ListMoviePage> createState() => _ListMoviePageState();
+  Widget build(BuildContext context) {
+    return ListMovieContent(
+        bloc: Modular.get<ListMovieBloc>(),
+        favoriteBloc: Modular.get<FavoriteBloc>());
+  }
 }
 
-class _ListMoviePageState extends State<ListMoviePage> {
-  final _bloc = Modular.get<ListMovieBloc>();
-  final _favoriteBloc = Modular.get<FavoriteBloc>();
+class ListMovieContent extends StatefulWidget {
+  final ListMovieBloc bloc;
+  final FavoriteBloc favoriteBloc;
+
+  const ListMovieContent(
+      {super.key, required this.bloc, required this.favoriteBloc});
 
   @override
+  State<ListMovieContent> createState() => _ListMovieContentState();
+}
+
+class _ListMovieContentState extends State<ListMovieContent> {
+  @override
   void initState() {
-    _bloc.add(FecthMovies());
+    widget.bloc.add(FecthMovies());
     super.initState();
   }
 
@@ -33,7 +45,7 @@ class _ListMoviePageState extends State<ListMoviePage> {
         child: Padding(
           padding: const EdgeInsets.all(28),
           child: BlocBuilder<ListMovieBloc, ListMovieState>(
-              bloc: _bloc,
+              bloc: widget.bloc,
               builder: (context, state) {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -59,7 +71,7 @@ class _ListMoviePageState extends State<ListMoviePage> {
                               labelText: 'Pequisar filme...',
                             ),
                             onChanged: (value) =>
-                                _bloc.add(SearchMovieByName(value)),
+                                widget.bloc.add(SearchMovieByName(value)),
                           ),
                           const SizedBox(
                             height: 8,
@@ -74,7 +86,7 @@ class _ListMoviePageState extends State<ListMoviePage> {
                             itemCount: state.movieEntity.length,
                             itemBuilder: (_, idx) =>
                                 BlocBuilder<FavoriteBloc, FavoriteState>(
-                                    bloc: _favoriteBloc,
+                                    bloc: widget.favoriteBloc,
                                     builder: (context, statefavorite) {
                                       final movie = state.movieEntity[idx];
                                       final isFavorite = statefavorite
@@ -85,11 +97,13 @@ class _ListMoviePageState extends State<ListMoviePage> {
                                           isFavorite: isFavorite,
                                           favoriteTap: () {
                                             if (isFavorite) {
-                                              _favoriteBloc.add(DeleteFavorite(
-                                                  state.movieEntity[idx]));
+                                              widget.favoriteBloc.add(
+                                                  DeleteFavorite(
+                                                      state.movieEntity[idx]));
                                             } else {
-                                              _favoriteBloc.add(SetFavorites(
-                                                  state.movieEntity[idx]));
+                                              widget.favoriteBloc.add(
+                                                  SetFavorites(
+                                                      state.movieEntity[idx]));
                                             }
                                           },
                                           movie: state.movieEntity[idx]);

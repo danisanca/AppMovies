@@ -8,5 +8,5 @@ class GetMoviesDataSourceDecorator implements GetMoviesDataSource {
   GetMoviesDataSourceDecorator(this._getMoviesDataSource);
 
   @override
-  Future<Either<Exception, MovieEntity>> call() => _getMoviesDataSource();
+  Future<MovieEntity> call() => _getMoviesDataSource();
 }
