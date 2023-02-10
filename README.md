@@ -11,6 +11,9 @@
 #### Shared Preferences
 #### Bloc
 #### Dio
+#### FireBaseAnalytics
+#### MockTails
+
 
 
 # Imagens do App ⭐
