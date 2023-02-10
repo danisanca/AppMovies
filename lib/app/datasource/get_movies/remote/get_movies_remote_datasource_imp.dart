@@ -1,5 +1,4 @@
 import 'package:app_movies/app/infra/dtos/movies_dto.dart';
-import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import '../../../../../services/http_service.dart';
 import '../../../../../utils/apis.utils.dart';

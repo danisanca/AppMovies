@@ -1,22 +1,22 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+// ignore_for_file: public_member_api_docs, sort_constructors_first, unnecessary_null_comparison
 import 'package:sqflite/sqflite.dart';
 
-final String tableFavorite = 'Favorite';
-final String columnId = 'id';
-final String columnAdult = 'adult';
-final String columnBackdropPath = 'backdrop_path';
-final String columnMovieId = 'movieId';
-final String columnMediaType = 'media_type';
-final String columnOriginalLanguage = 'original_language';
-final String columnOriginalTitle = 'original_title';
-final String columnOverview = 'overview';
-final String columnPopularity = 'popularity';
-final String columnPosterPath = 'poster_path';
-final String columnReleaseDate = 'release_date';
-final String columnTitle = 'title';
-final String columnVideo = 'video';
-final String columnVoteAverage = 'vote_average';
-final String columnVoteCount = 'vote_count';
+const String tableFavorite = 'Favorite';
+const String columnId = 'id';
+const String columnAdult = 'adult';
+const String columnBackdropPath = 'backdrop_path';
+const String columnMovieId = 'movieId';
+const String columnMediaType = 'media_type';
+const String columnOriginalLanguage = 'original_language';
+const String columnOriginalTitle = 'original_title';
+const String columnOverview = 'overview';
+const String columnPopularity = 'popularity';
+const String columnPosterPath = 'poster_path';
+const String columnReleaseDate = 'release_date';
+const String columnTitle = 'title';
+const String columnVideo = 'video';
+const String columnVoteAverage = 'vote_average';
+const String columnVoteCount = 'vote_count';
 
 class Favorite {
   final int id;
@@ -170,7 +170,7 @@ create table $tableFavorite (
   Future<Favorite?> getFavoriteById(int id) async {
     List<Map> maps =
         await db!.query(tableFavorite, where: '$columnId = ?', whereArgs: [id]);
-    if (maps.length > 0) {
+    if (maps.isNotEmpty) {
       return Favorite.fromMap(maps.first);
     }
     return null;
@@ -179,7 +179,7 @@ create table $tableFavorite (
   Future<Favorite?> getFavoriteByMovieId(int id) async {
     List<Map> maps = await db!
         .query(tableFavorite, where: '$columnMovieId = ?', whereArgs: [id]);
-    if (maps.length > 0) {
+    if (maps.isNotEmpty) {
       return Favorite.fromMap(maps.first);
     }
     return null;
@@ -190,7 +190,7 @@ create table $tableFavorite (
       await open('db');
     }
     List<Map> maps = await db!.query(tableFavorite);
-    if (maps.length > 0) {
+    if (maps.isNotEmpty) {
       return maps.map<Favorite>((e) => Favorite.fromMap(e)).toList();
     }
     return [];

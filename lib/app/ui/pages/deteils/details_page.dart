@@ -57,11 +57,12 @@ class DetailsPage extends StatelessWidget {
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                key: (const Key("ReleaseDate")),
                 children: [
                   const Icon(Icons.new_releases_outlined),
                   Text(movie.releaseDate),
                 ],
-                key: (const Key("ReleaseDate")),
+                
               ),
             ],
           ),

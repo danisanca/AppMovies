@@ -1,4 +1,4 @@
-import 'dart:developer';
+// ignore_for_file: prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -55,17 +55,17 @@ class _FavoritePageState extends State<FavoritePage> {
                     ),
                     if (state.movieEntity.isEmpty) ...[
                       Center(
-                        child: Column(
+                        child: Column(key: const Key("ListaVazia"),
                           children: [
-                            Icon(
+                            const Icon(
                               Icons.sentiment_dissatisfied_outlined,
                               size: 72,
                               color: Colors.yellow,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 8,
                             ),
-                            Text('Não há filmes favoritos.',style: TextStyle(fontWeight: FontWeight.bold),),
+                            const Text('Não há filmes favoritos.',style: TextStyle(fontWeight: FontWeight.bold),),
                           ],
                         ),
                       ),

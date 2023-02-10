@@ -1,4 +1,3 @@
-import 'package:app_movies/app/domain/repositories/favorite_repository.dart';
 import 'package:app_movies/app/domain/repositories/favorite_repository_imp.dart';
 import 'package:app_movies/app/domain/usecases/delete_favorite_usecase_imp.dart';
 import 'package:app_movies/app/domain/usecases/get_favorite_movie_by_id_imp.dart';

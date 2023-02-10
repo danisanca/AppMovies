@@ -1,4 +1,3 @@
-import 'package:app_movies/app/domain/entities/movies_details_entity.dart';
 import 'package:app_movies/app/domain/entities/movies_entity.dart';
 import 'package:app_movies/app/domain/usecases/get_movies_usecase.dart';
 import 'package:app_movies/app/infra/dtos/movies_details_dto.dart';
@@ -41,7 +40,7 @@ void main() {
   setUp(() {
     getMoviesUseCase = GetMoviesUseCaseMock();
     state = ListMovieState(
-        status: IdleState(), movieEntity: list, cachedMovieEntity: list);
+        status: const IdleState(), movieEntity: list, cachedMovieEntity: list);
     bloc = ListMovieBloc(getMoviesUseCase, initialstate: state);
     movieEntity = MovieEntity(
         averageRating: 0.0,
@@ -82,6 +81,7 @@ void main() {
               cachedMovieEntity: movieEntity.listMovies)
         ],
       );
+      
       blocTest<ListMovieBloc, ListMovieState>(
         "Quando retornar error",
         build: () => bloc,

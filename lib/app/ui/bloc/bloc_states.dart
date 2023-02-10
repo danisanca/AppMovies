@@ -8,7 +8,6 @@ class IdleState implements BlocBaseState {
   List<Object?> get props => [];
   
   @override
-  // TODO: implement stringify
   bool? get stringify => false;
 }
 

@@ -1,5 +1,3 @@
-import 'package:app_movies/app/domain/entities/movies_details_entity.dart';
-import 'package:app_movies/app/domain/entities/movies_entity.dart';
 import 'package:app_movies/app/ui/bloc/favorites/favorite_bloc.dart';
 import 'package:app_movies/app/ui/pages/list_movies/bloc/bloc.dart';
 import 'package:app_movies/app/ui/pages/list_movies/bloc/states.dart';

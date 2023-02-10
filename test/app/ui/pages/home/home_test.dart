@@ -27,7 +27,6 @@ class ListMovieBlocMock extends Mock implements ListMovieBloc {}
 
 class ModuleMock extends Module {
   @override
-  // TODO: implement binds
   List<Bind<Object>> get binds => [
         Bind.instance<HomePageBloc>(HomePageBlocMock()),
         Bind.instance<FavoriteBloc>(FavoritePageBlocMock()),
@@ -43,8 +42,8 @@ void main() {
   final ListMovieBloc listMovieBloc = ListMovieBlocMock();
   final state = HomeState(status: SuccessState());
   final stateFavorite = FavoriteState(status: FavoriteStatus.idle);
-  final stateListInHighMovie = ListInHighMovieState(status: IdleState());
-  final stateListMovie = ListMovieState(status: IdleState());
+  final stateListInHighMovie = ListInHighMovieState(status: const IdleState());
+  final stateListMovie = ListMovieState(status: const IdleState());
 
   setUp(() {
     initModule(ModuleMock(), replaceBinds: [
@@ -83,7 +82,7 @@ void main() {
           ),
           initialState: stateListMovie);
 
-      await tester.pumpWidget(MaterialApp(
+      await tester.pumpWidget(const MaterialApp(
         home: HomePage(),
       ));
 

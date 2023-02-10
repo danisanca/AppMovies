@@ -11,7 +11,7 @@ class ListInHighMovieBloc extends Bloc<BlocBaseEvent, ListInHighMovieState> {
 
   ListInHighMovieBloc(GetMoviesUseCase getMoviesUseCase)
       : _getMoviesUseCase = getMoviesUseCase,
-        super(ListInHighMovieState(status: IdleState())) {
+        super(ListInHighMovieState(status: const IdleState())) {
     on<FecthInHightAllMovies>(_fecthInHightAllMovies);
   }
 

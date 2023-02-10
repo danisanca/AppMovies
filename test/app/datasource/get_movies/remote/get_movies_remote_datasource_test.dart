@@ -1,8 +1,6 @@
-import 'package:app_movies/app/datasource/get_movies/get_movies_datasource.dart';
 import 'package:app_movies/app/datasource/get_movies/remote/get_movies_remote_datasource_imp.dart';
 import 'package:app_movies/app/domain/entities/movies_entity.dart';
 import 'package:app_movies/services/http_service.dart';
-import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';

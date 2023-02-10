@@ -1,5 +1,4 @@
 import 'package:app_movies/app/ui/bloc/bloc_states.dart';
-import 'package:app_movies/app/ui/bloc/favorites/favorite_bloc.dart';
 import 'package:app_movies/app/ui/pages/home/bloc/bloc.dart';
 import 'package:app_movies/app/ui/pages/home/bloc/states.dart';
 import 'package:bloc_test/bloc_test.dart';

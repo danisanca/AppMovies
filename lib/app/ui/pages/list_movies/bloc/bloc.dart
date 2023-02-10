@@ -12,7 +12,7 @@ class ListMovieBloc extends Bloc<BlocBaseEvent, ListMovieState> {
   ListMovieBloc(GetMoviesUseCase getMoviesUseCase,
       {ListMovieState? initialstate})
       : _getMoviesUseCase = getMoviesUseCase,
-        super(initialstate ?? ListMovieState(status: IdleState())) {
+        super(initialstate ?? ListMovieState(status: const IdleState())) {
     on<FecthMovies>(_onFetchMovies);
     on<SearchMovieByName>(_onFetchMovieByName);
   }

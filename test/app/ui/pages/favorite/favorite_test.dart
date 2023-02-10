@@ -1,15 +1,25 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:app_movies/app/infra/dtos/movies_details_dto.dart';
-import 'package:app_movies/app/ui/bloc/bloc_states.dart';
 import 'package:app_movies/app/ui/bloc/favorites/favorite_bloc.dart';
 import 'package:app_movies/app/ui/components/custom_list_card_widget.dart';
 import 'package:app_movies/app/ui/pages/favorite/favorite.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:modular_test/modular_test.dart';
 import 'package:network_image_mock/network_image_mock.dart';
 
 class FavoriteBlockMock extends Mock implements FavoriteBloc {}
+
+class ModuleMock extends Module {
+  @override
+  List<Bind<Object>> get binds => [
+        Bind.instance<FavoriteBloc>(FavoriteBlockMock()),
+      ];
+}
 
 void main() {
   final list = [
@@ -33,9 +43,11 @@ void main() {
   ];
 
   final FavoriteBloc bloc = FavoriteBlockMock();
-  final state = FavoriteState(status: FavoriteStatus.idle, movieEntity: list);
+  final state = FavoriteState(status: FavoriteStatus.idle);
 
-  setUp(() {});
+  setUp(() {
+    initModule(ModuleMock(), replaceBinds: [Bind.instance<FavoriteBloc>(bloc)]);
+  });
 
   group("[UI] - FavoritePage", () {
     testWidgets('[UI] - Sucesso ao carregar lista de favoritos',
@@ -52,13 +64,30 @@ void main() {
               status: FavoriteStatus.successGetFavorite, movieEntity: list));
 
       await mockNetworkImagesFor(() async {
-        await tester.pumpWidget(MaterialApp(
+        await tester.pumpWidget(const MaterialApp(
           home: FavoritePage(),
         ));
         await tester.pump();
       });
 
       expect(find.byType(CustomListCardWidget), findsOneWidget);
+    });
+    testWidgets("[UI] - Retornar msg caso a lista de favoritos estiver vaiza",
+        (tester) async {
+      whenListen(
+          bloc,
+          Stream<FavoriteState>.fromIterable(
+              [FavoriteState(status: FavoriteStatus.idle)]),
+          initialState: FavoriteState(
+              status: FavoriteStatus.idle, movieEntity: const []));
+
+      await tester.pumpWidget(const MaterialApp(
+        home: FavoritePage(),
+      ));
+
+      await tester.pump();
+      
+      expect(find.byKey(const Key("ListaVazia")), findsOneWidget);
     });
   });
 }

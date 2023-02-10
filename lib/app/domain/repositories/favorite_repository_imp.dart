@@ -3,7 +3,6 @@ import 'package:app_movies/app/domain/entities/movies_details_entity.dart';
 import 'package:app_movies/app/domain/erros.dart';
 import 'package:dartz/dartz.dart';
 
-import 'package:app_movies/app/domain/entities/movies_entity.dart';
 import 'package:app_movies/app/domain/repositories/favorite_repository.dart';
 
 import '../../datasource/favorite/favorite_datasource.dart';

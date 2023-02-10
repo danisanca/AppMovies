@@ -75,7 +75,7 @@ class CustomListCardWidget extends StatelessWidget {
                                 ? Icons.favorite
                                 : Icons.heart_broken_sharp,
                             color: isFavorite == false
-                                ? Color.fromARGB(255, 69, 107, 231)
+                                ? const Color.fromARGB(255, 69, 107, 231)
                                 : Colors.red,
                           ),
                         )

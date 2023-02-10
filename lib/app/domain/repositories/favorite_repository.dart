@@ -2,7 +2,6 @@
 import 'package:app_movies/app/domain/erros.dart';
 import 'package:dartz/dartz.dart';
 import '../entities/movies_details_entity.dart';
-import '../entities/movies_entity.dart';
 
 abstract class FavoritesRepository {
 

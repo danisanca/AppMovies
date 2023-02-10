@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:app_movies/app/infra/dtos/movies_dto.dart';
-import 'package:dartz/dartz.dart';
 import '../../../domain/entities/movies_entity.dart';
 import '../get_movies_datasource.dart';
 import 'get_movies_datasource_decorator.dart';

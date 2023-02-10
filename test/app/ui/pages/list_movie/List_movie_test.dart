@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:app_movies/app/infra/dtos/movies_details_dto.dart';
 import 'package:app_movies/app/ui/bloc/bloc_states.dart';
 import 'package:app_movies/app/ui/bloc/favorites/favorite_bloc.dart';
@@ -7,11 +9,9 @@ import 'package:app_movies/app/ui/components/custom_list_card_widget.dart';
 import 'package:app_movies/app/ui/pages/list_movies/list_movies.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lottie/lottie.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:modular_test/modular_test.dart';
 import 'package:network_image_mock/network_image_mock.dart';
 
 class ListMovieBlockMock extends Mock implements ListMovieBloc {}
@@ -42,8 +42,9 @@ void main() {
 
   final ListMovieBloc bloc = ListMovieBlockMock();
   final FavoriteBloc favoriteBloc = FavoriteBlockMock();
-  final state = ListMovieState(status: IdleState());
-  final stateFavorite = FavoriteState(status: FavoriteStatus.idle, movieEntity: list);
+  final state = ListMovieState(status: const IdleState());
+  final stateFavorite =
+      FavoriteState(status: FavoriteStatus.idle, movieEntity: list);
 
   setUp(() {});
 

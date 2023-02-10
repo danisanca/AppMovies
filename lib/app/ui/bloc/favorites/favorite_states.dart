@@ -25,6 +25,5 @@ class FavoriteState extends BlocBaseState {
           movieEntity: movieEntity ?? this.movieEntity);
 
   @override
-  // TODO: implement props
   List<Object?> get props => [status, movieEntity];
 }
